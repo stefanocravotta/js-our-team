@@ -33,24 +33,79 @@ const membriTeam = [
     }
 ]
 
-console.log(membriTeam[0].nome);
+const addBtn = document.getElementById('addMemberButton');
 
-for(let key in membriTeam){
+
+/* Inizio */
+
+stampaMembro();
+addBtn.addEventListener('click',handleClick);
+
+
+
+/* FUNZIONI */
+
+function stampaMembro(){
+
+    for(let key in membriTeam){
     const membro = membriTeam[key];
+    const nome = membro.nome;
+    const ruolo = membro.ruolo;
+    const foto = membro.foto;
     console.log(membro);
     const output = `
     <div class="team-card">
             <div class="card-image">
               <img
-                src="${membro.foto}"
-                alt="${membro.nome}"
+                src="${foto}"
+                alt="${nome}"
               />
             </div>
             <div class="card-text">
-              <h3>${membro.nome}</h3>
-              <p>${membro.ruolo}</p>
+              <h3>${nome}</h3>
+              <p>${ruolo}</p>
             </div>
     </div>`
 
     document.querySelector('.team-container').innerHTML += output;
+    }
+}
+
+
+
+
+function handleClick(){
+    const nomeForm = document.getElementById('name').value;
+    const ruoloForm = document.getElementById('role').value;
+    const imageForm = document.getElementById('image').value;
+    aggiuntaMembri(nomeForm,ruoloForm,imageForm);
+}
+
+
+
+function aggiuntaMembri(nome,ruolo,foto){
+    
+    const addMember = { 
+        nome: `${nome}`,
+        ruolo: `${ruolo}`,
+        foto: `${foto}`
+    };
+
+    membriTeam.push(addMember);
+
+    const output = `
+    <div class="team-card">
+            <div class="card-image">
+              <img
+                src="${foto}"
+                alt="${nome}"
+              />
+            </div>
+            <div class="card-text">
+              <h3>${nome}</h3>
+              <p>${ruolo}</p>
+            </div>
+    </div>`
+    document.querySelector('.team-container').innerHTML += output;
+
 }
